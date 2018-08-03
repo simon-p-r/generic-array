@@ -43,6 +43,8 @@ init:
 #---------------------------------#
 
 before_build:
+  - echo Directory before starting build...
+  - dir
   - cd c:\tools\vcpkg
   - git pull
   - bootstrap-vcpkg.bat
@@ -55,7 +57,9 @@ before_build:
 #---------------------------------#
 
 build_script:
-  - .\build.cmd %configuration% %arch%
+  - echo Directory before running build step...
+  - dir
+  - build %configuration% %arch%
  
 
 #---------------------------------#
@@ -64,7 +68,8 @@ build_script:
 #---------------------------------#
 
 test_script:
-    - echo Test_script hook
+  - echo Project directory before running test step...
+  - dir
 
 
 #---------------------------------#
@@ -73,3 +78,4 @@ test_script:
 
 on_finish:
   - echo Project directory after running tests...
+  - dir

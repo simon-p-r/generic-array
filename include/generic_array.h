@@ -10,8 +10,8 @@
 
 #define define_array_h(typeName, valueType)                                         \
                                                                                     \
-    typedef struct {                                                                 \
-        valueType * entries;                                                         \
+    typedef struct typeName {                                                     \
+        valueType* entries;                                                          \
         void *user;                                                                  \
         size_t length;                                                               \
         size_t capacity;                                                             \
@@ -20,18 +20,18 @@
                                                                                         \
     typedef void (*typeName ## _iter_t)(typeName *array, valueType entry, size_t index);  \
                                                                                      \
-    typeName* typeName ## _new();                                                    \
-    void typeName ## _free(typeName* array);                                         \
-    void typeName ## _push(typeName* array, valueType value);                        \
-    void typeName ## _foreach(typeName* array, void *func);                          \
-    void typeName ## _set(typeName* array, size_t index, valueType value);            \
-    valueType typeName ## _get(typeName* array, size_t index);                        \
-    valueType typeName ## _pop(typeName* array);                                 
+    typeName *typeName ## _new();                                                    \
+    void typeName ## _free(typeName *array);                                         \
+    void typeName ## _push(typeName *array, valueType value);                        \
+    void typeName ## _foreach(typeName *array, void *func);                          \
+    void typeName ## _set(typeName *array, size_t index, valueType value);            \
+    valueType typeName ## _get(typeName *array, size_t index);                        \
+    valueType typeName ## _pop(typeName *array);                                 
 
-#define define_array_c(typeName, valueType, compareFn)                              \
-    typeName* typeName ## _new(void *user) {                                        \
+#define define_array_c(typeName, valueType, compareFn, defaultVal)                   \
+    typeName *typeName ## _new(void *user) {                                        \
         const size_t initial_size = 16;                                             \
-        typeName * array = calloc(1, sizeof(*array));                               \
+        typeName *array = calloc(1, sizeof(*array));                               \
         array->user = user;                                                          \
         array->length = 0;                                                          \
         array->capacity = initial_size;                                             \
@@ -40,13 +40,13 @@
         return array;                                                                \
     }                                                                                \
                                                                                      \
-    void typeName ## _free(typeName* array) { \
+    void typeName ## _free(typeName *array) { \
         free(array->entries);                                                        \
         free(array);                                                                 \
         array = NULL;                                                                 \
     };                                                                               \
                                                                                      \
-    void typeName ## _push(typeName* array, valueType value) {                       \
+    void typeName ## _push(typeName *array, valueType value) {                       \
         if (array->length >= array->capacity) {                                      \
             array->capacity *= 2;                                                     \
             array->entries = realloc(array->entries, array->size * array->capacity);  \
@@ -55,40 +55,38 @@
         array->length++;                                                               \
     };                                                                                 \
                                                                                        \
-    void typeName ## _foreach(typeName* array, typeName ## _iter_t func) {            \
+    void typeName ## _foreach(typeName *array, typeName ## _iter_t func) {            \
         for (size_t i = 0; i < array->length; ++i)  {                                 \
             valueType var = array->entries[i];                                        \
             func(array->user, var, i);                                                \
         }                                                                             \
     }                                                                                 \
                                                                                       \
-    void typeName ## _set(typeName* array, size_t index, valueType value) {           \
+    void typeName ## _set(typeName *array, size_t index, valueType value) {           \
         if (index <= array->length) {                                                  \
             array->entries[index] = value;                                            \
         }                                                                             \
     };                                                                                \
                                                                                       \
-    valueType typeName ## _get(typeName* array, size_t index) {                       \
-        valueType var = 0;                                                             \
+    valueType typeName ## _get(typeName *array, size_t index) {                       \
         if (index <= array->length) {                                                  \
-            var = array->entries[index];                                             \
+            return array->entries[index];                                             \
         }                                                                            \
-        return var;                                                                  \
+        return defaultVal;                                                            \
     }                                                                                 \
                                                                                       \
     valueType typeName ## _pop(typeName *array) {                                       \
-        valueType var = 0;                                                              \
         if(array->length > 0) {                                                         \
-            var = array->entries[array->length - 1];                                    \
-            array->length--;                                                            \
+            array->length--;                                                           \
+            return array->entries[array->length];                                      \
         }                                                                               \
-        return var;                                                                     \
+        return defaultVal;                                                               \
     }                 
 
 
 // The name is type of object and type is element within array.
-define_array_h(void_ptr_array, void*)
-define_array_h(string_array, char*)
+define_array_h(void_ptr_array, void *)
+define_array_h(string_array, char *)
 define_array_h(int_array, int)
 define_array_h(char_array, char)
 define_array_h(float_array, float)

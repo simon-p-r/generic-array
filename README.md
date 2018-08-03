@@ -20,8 +20,7 @@ In the corresponding source file, use the macro `array_define_c` to generate the
 | typeName | The name of the generated type. This will also prefix all of the function names. |
 | valueType | The type of the map elements. |
 | compareFn | Currently unused param. |
-
-<!-- | defaultValue | The value to return when you try to access a key that doesn't exist. | -->
+| defaultValue | The value to return when you try to access a key that doesn't exist. |
 
 The first 2 arguments of `array_define_c` *MUST* be the same as those used in `array_define_h`.
 
@@ -39,7 +38,7 @@ define_array_h(uint8_array, uint8_t)
 
 #include "array.h"
 
-define_array_c(uint8_array, uint8_t, NULL)
+define_array_c(uint8_array, uint8_t, NULL, 0)
 ```
 
 That's all you need to define the arrays.

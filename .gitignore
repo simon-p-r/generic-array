@@ -342,3 +342,5 @@ build/
 
 # vs code
 .vscode/
+
+*.i
