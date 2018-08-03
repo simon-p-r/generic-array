@@ -50,7 +50,7 @@ before_build:
   - bootstrap-vcpkg.bat
   - vcpkg integrate install
   - vcpkg install check:x86-windows check:x64-windows
-  - set VCPKG_HOME=c:/tools/vcpkg
+  - set VCPKG_HOME=c:/tools/vcpkg/
 
 #---------------------------------#
 #   build code and unit tests     #
