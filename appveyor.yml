@@ -58,6 +58,7 @@ before_build:
 
 build_script:
   - echo Directory before running build step...
+  - cd c:\projects\generic-array
   - dir
   - build %configuration% %arch%
  
