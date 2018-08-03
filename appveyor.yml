@@ -45,7 +45,7 @@ init:
 before_build:
   - echo Directory before starting build...
   - dir
-  - cd c:\tools\vcpkg
+  - cd c:\tools\vcpkg\
   - git pull
   - bootstrap-vcpkg.bat
   - vcpkg integrate install
