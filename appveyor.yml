@@ -22,7 +22,7 @@ environment:
     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
 
 
-
+cache: c:\tools\vcpkg\installed\
 
 # build Configuration, i.e. Debug, Release, etc.
 configuration: Release
@@ -55,7 +55,7 @@ before_build:
 #---------------------------------#
 
 build_script:
-  - build.cmd %configuration% %arch%
+  - .\build.cmd %configuration% %arch%
  
 
 #---------------------------------#
@@ -63,9 +63,8 @@ build_script:
 #   and x64 architecture builds   #
 #---------------------------------#
 
-# test_script:
-#   - cmake --build "%CMAKE_BINARY_DIR%" --target RUN_TESTS --config "%CMAKE_BUILD_TYPE%"
-
+test_script:
+    - echo Test_script hook
 
 
 #---------------------------------#
