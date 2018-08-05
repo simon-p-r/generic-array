@@ -50,12 +50,12 @@ The macros define the following functions to use the maps.
 | Function | Description | Return |
 | --- | --- | --- |
 | \<typeName>_new(void *user) | Initializes the data needed for the map. Returns the result of `calloc` used to initialize the data buffer.  Pass user defined void pointer to func for use with iterator foreach callback | pointer to array_struct_type  |
-| \<typeName>_free(\<typeName>\* array) | Frees the data used by the array plus the array is freed and set to NULL. | void |
-| \<typeName>_push(\<typeName>\* array, \<valueType> value) | Pushes value onto end of array.| void |
-| \<typeName>_pop(\<typeName>\* array | Pops value from end of array, function returns value.| <valueType> |
-| \<typeName>_set(\<typeName>\* array, \size_t index, \<valueType> value) | Sets the value at index of array. Overwrites the previous value. | void |
-| \<typeName>_get(\<typeName>\* array, \size_t index) | Gets the value associated with the specified index. Returns `defaultValue` if the key isn't found. | <valueType> |
-| \<typeName>_foreach(\<typeName>\* array, \<typeName_iter_t> callback) | Iterates over array memembers. | void |
+| \<typeName>_free(\<typeName>\ *array) | Frees the data used by the array plus the array is freed and set to NULL. | void |
+| \<typeName>_push(\<typeName>\ *array, \<valueType> value) | Pushes value onto end of array.| void |
+| \<typeName>_pop(\<typeName>\ *array | Pops value from end of array, function returns value.| <valueType> |
+| \<typeName>_set(\<typeName>\ *array, \size_t index, \<valueType> value) | Sets the value at index of array. Overwrites the previous value. | void |
+| \<typeName>_get(\<typeName>\ *array, \size_t index) | Gets the value associated with the specified index. Returns `defaultValue` if the key isn't found. | \<valueType> |
+| \<typeName>_foreach(\<typeName>\ *array, \<typeName_iter_t> callback) | Iterates over array memembers. | void |
 
 ```c
 #include <stdio.h>
